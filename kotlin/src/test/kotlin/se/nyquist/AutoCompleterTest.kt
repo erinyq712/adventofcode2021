@@ -12,7 +12,7 @@ class AutoCompleterTest {
 
     @ParameterizedTest
     @MethodSource
-    fun complete(input: String, output: String, score: Int) {
+    fun complete(input: String, output: String, score: Long) {
         val status = parser.parse(input)
         val completed = autoCompleter.complete(input, status)
         assertEquals(output, completed.completed)

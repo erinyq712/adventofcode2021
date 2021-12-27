@@ -29,7 +29,7 @@ fun isEnd(c: Char): Boolean {
 }
 
 class Parser {
-    val scores = mapOf(
+    private val scores = mapOf(
         Pair(')', 3),
         Pair(']', 57),
         Pair('}', 1197),

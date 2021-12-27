@@ -7,6 +7,7 @@ class DataReader(fileName: String) {
     private val file = File(fileName)
     private val lines = file.readLines()
     var score : Int = 0
+    var invalidLines : Int = 0
 
     init {
         val parser = Parser()
@@ -14,9 +15,11 @@ class DataReader(fileName: String) {
         for (i in lines.indices) {
             val status = parser.parse(lines[i])
             score += status.score
-            val autoCompleterStatus = autoCompleter.complete(lines[i], status.symbols)
-            if (autoCompleterStatus.score > 0) {
+            if (status.score == 0) {
+                val autoCompleterStatus = autoCompleter.complete(lines[i], status)
                 completedInput.add(autoCompleterStatus)
+            } else {
+                invalidLines++
             }
         }
     }

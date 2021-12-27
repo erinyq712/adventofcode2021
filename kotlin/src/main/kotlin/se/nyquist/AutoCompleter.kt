@@ -1,7 +1,7 @@
 package se.nyquist
 
 class AutoCompleter {
-    val scores = mapOf(
+    private val scores = mapOf(
         Pair(')', 1),
         Pair(']', 2),
         Pair('}', 3),
@@ -17,7 +17,7 @@ class AutoCompleter {
 
     fun complete(input: String, symbols: MutableList<Char>) : AutoCompleterStatus {
         val tail : MutableList<Char> = mutableListOf()
-        var score = 0
+        var score = 0L
         for (i in symbols.lastIndex downTo 0) {
             val current = symbols[i]
             if (isBegin(current)) {
@@ -27,6 +27,7 @@ class AutoCompleter {
                 score += scores.getOrDefault(endCharacter,0)
             }
         }
-        return AutoCompleterStatus(input + tail.joinToString(""), score)
+        val completed = input + tail.joinToString("")
+        return AutoCompleterStatus(completed, score)
     }
 }

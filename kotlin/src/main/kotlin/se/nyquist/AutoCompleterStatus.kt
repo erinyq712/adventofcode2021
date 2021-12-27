@@ -1,3 +1,3 @@
 package se.nyquist
 
-data class AutoCompleterStatus(val completed: String, val score : Int = 0)
+data class AutoCompleterStatus(val completed: String, val score : Long = 0L)
