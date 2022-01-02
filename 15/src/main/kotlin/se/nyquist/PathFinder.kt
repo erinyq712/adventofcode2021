@@ -61,9 +61,8 @@ class PathFinder(private val map : Array<Array<Int>>, private val bestPath : Mut
         }
         return candidates
                 .filter {
-                    !bestPath.containsKey(it) || (bestPath.containsKey(it) && bestPath.getValue(it).cost > route.cost + getCost(
-                        it
-                    ))
+                    !bestPath.containsKey(it) ||
+                            (bestPath.containsKey(it) && bestPath.getValue(it).cost > route.cost + getCost(it))
                 }
                 .map { createRoute(route, it) }.toList()
     }
