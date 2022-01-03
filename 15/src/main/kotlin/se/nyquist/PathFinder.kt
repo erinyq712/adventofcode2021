@@ -1,11 +1,32 @@
 package se.nyquist
 
 import java.io.File
+import java.util.*
 
 fun main() {
     val lines = File("input.txt").readLines()
-    val map = lines.map { it.toCharArray().map { c -> c.digitToInt() }.toTypedArray()}.toTypedArray()
+
+    exercise1(lines)
+    exercise2(lines)
+}
+private fun exercise1(lines: List<String>) {
+    val map = lines.map { it.toCharArray().map { c -> c.digitToInt() }.toTypedArray() }.toTypedArray()
     val finder = PathFinder(map)
+    val route = finder.find()
+    val points = route.route.joinToString(",") { "(${it.first},${it.second})" }
+    println("Min cost: ${route.cost} for route: $points")
+}
+
+// (
+private fun exercise2(lines: List<String>) {
+    val map = lines.map { it.toCharArray().map { c -> c.digitToInt() }.toTypedArray() }.toTypedArray()
+    val extendedMap  =
+        (0 until 5*map.size)
+            .map { rowFactor ->
+                (0 until 5)
+                    .flatMap { columnnFactor ->
+                        map[rowFactor % map.size].map { col -> (col - 1 + (rowFactor/map.size + columnnFactor)) % 9 + 1 }}.toTypedArray()}.toTypedArray()
+    val finder = PathFinder(extendedMap)
     val route = finder.find()
     val points = route.route.joinToString(",") { "(${it.first},${it.second})" }
     println("Min cost: ${route.cost} for route: $points")
@@ -27,10 +48,12 @@ class PathFinder(private val map : Array<Array<Int>>, private val bestPath : Mut
     }
 
     private fun routes(endpos: Pair<Int, Int>, initalRoute: Route) : List<Route> {
-        val routes = mutableListOf(initalRoute)
+        val comparator : Comparator<Route> = compareBy{ it.cost }
+        val routes = PriorityQueue<Route>(comparator)
+        routes.add(initalRoute)
         val result = mutableListOf<Route>()
         while (routes.isNotEmpty()) {
-            val route = routes.removeAt(0)
+            val route = routes.remove()
             val current = route.route.last()
             if (current == endpos) {
                 result.add(route)
