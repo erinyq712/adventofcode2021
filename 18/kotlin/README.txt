@@ -41,7 +41,9 @@ Here are some examples of a single explode action:
 [[3,[2,[1,[7,3]]]],[6,[5,[4,[3,2]]]]] becomes [[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]] (the pair [3,2] is unaffected because the pair [7,3] is further to the left;
 [3,2] would explode on the next action).
 [[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]] becomes [[3,[2,[8,0]]],[9,[5,[7,0]]]].
-To split a regular number, replace it with a pair; the left element of the pair should be the regular number divided by two and rounded down, while the right element of the pair should be the regular number divided by two and rounded up. For example, 10 becomes [5,5], 11 becomes [5,6], 12 becomes [6,6], and so on.
+To split a regular number, replace it with a pair; the left element of the pair should be the regular number divided by two and rounded down, w
+hile the right element of the pair should be the regular number divided by two and rounded up.
+For example, 10 becomes [5,5], 11 becomes [5,6], 12 becomes [6,6], and so on.
 
 Here is the process of finding the reduced result of [[[[4,3],4],4],[7,[[8,4],9]]] + [1,1]:
 
@@ -53,7 +55,9 @@ after split:    [[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]
 after explode:  [[[[0,7],4],[[7,8],[6,0]]],[8,1]]
 Once no reduce actions apply, the snailfish number that remains is the actual result of the addition operation: [[[[0,7],4],[[7,8],[6,0]]],[8,1]].
 
-The homework assignment involves adding up a list of snailfish numbers (your puzzle input). The snailfish numbers are each listed on a separate line. Add the first snailfish number and the second, then add that result and the third, then add that result and the fourth, and so on until all numbers in the list have been used once.
+The homework assignment involves adding up a list of snailfish numbers (your puzzle input). The snailfish numbers are each listed on a separate line.
+Add the first snailfish number and the second, then add that result and the third, then add that result and the fourth, and so on until all numbers in
+the list have been used once.
 
 For example, the final sum of this list is [[[[1,1],[2,2]],[3,3]],[4,4]]:
 
@@ -157,3 +161,28 @@ The final sum is:
 The magnitude of this final sum is 4140.
 
 Add up all of the snailfish numbers from the homework assignment in the order they appear. What is the magnitude of the final sum?
+
+3734
+
+--- Part Two ---
+You notice a second question on the back of the homework assignment:
+
+What is the largest magnitude you can get from adding only two of the snailfish numbers?
+
+Note that snailfish addition is not commutative - that is, x + y and y + x can produce different results.
+
+Again considering the last example homework assignment above:
+
+[[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
+[[[5,[2,8]],4],[5,[[9,9],0]]]
+[6,[[[6,2],[5,6]],[[7,6],[4,7]]]]
+[[[6,[0,7]],[0,9]],[4,[9,[9,0]]]]
+[[[7,[6,4]],[3,[1,3]]],[[[5,5],1],9]]
+[[6,[[7,3],[3,2]]],[[[3,8],[5,7]],4]]
+[[[[5,4],[7,7]],8],[[8,3],8]]
+[[9,3],[[9,9],[6,[4,9]]]]
+[[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]]
+[[[[5,2],5],[8,[3,7]]],[[5,[7,5]],[4,4]]]
+The largest magnitude of the sum of any two snailfish numbers in this list is 3993. This is the magnitude of [[2,[[7,7],7]],[[5,8],[[9,3],[0,2]]]] + [[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]], which reduces to [[[[7,8],[6,6]],[[6,0],[7,7]]],[[[7,8],[8,8]],[[7,9],[0,6]]]].
+
+What is the largest magnitude of any sum of two different snailfish numbers from the homework assignment?
